@@ -1,0 +1,2 @@
+myprojectile.Myprojectile
+myprojectile.MyWindowAdapter
