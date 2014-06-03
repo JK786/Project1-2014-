@@ -1,0 +1,146 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style type="text/css">
+#dialogboxoverlay
+          {
+           display: none;
+	opacity: .8;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background: #FFA500;
+	width: 100%;
+	z-index: 10;
+            
+           
+           }
+           
+ #dialogbox{
+	display: none;
+	position: fixed;
+	background: #FFA500;
+	border-radius:7px; 
+	width:550px;
+	z-index: 10;
+}
+
+#dialogbox > div{ background:#FFA500; margin:8px; }
+#dialogbox > div > #dialogboxhead{ background: #666; font-size:19px; padding:10px; color:#CCC; }
+#dialogbox > div > #dialogboxbody{ background: #7CFC00; padding:20px; color:#FFF; }
+#dialogbox > div > #dialogboxfoot{ background: #666; padding:10px; text-align:right; }
+
+/*
+button{
+
+	background: red;
+}
+*/
+
+
+</style>
+
+<script>
+function CustomConfirm(){
+	this.render = function(txt){
+
+       var obj=JSON.parse(txt);
+
+
+		var winW = window.innerWidth;
+	    var winH = window.innerHeight;
+		var dialogoverlay = document.getElementById('dialogoverlay');
+	    var dialogbox = document.getElementById('dialogbox');
+		dialogoverlay.style.display = "block";
+	    dialogoverlay.style.height = winH+"px";
+		dialogbox.style.left = (winW/2) - (550 * .5)+"px";
+	    dialogbox.style.top = "100px";
+	    dialogbox.style.display = "block";
+
+		document.getElementById('dialogboxhead').innerHTML = "This is my first custom confirm JSON box";
+	    document.getElementById('dialogboxbody').innerHTML = "This is my first custom JSON confirm box";
+         
+          var f='';
+         
+         for(var i=0;i<obj.length;i++)
+         {
+             f=f+'<button id=id'+i+'>'+obj[i]['label']+'</button>';
+              //document.getElementById(' '+i).background =obj[i]['colour'];
+              
+         }
+		
+		document.getElementById('dialogboxfoot').innerHTML =f;
+  
+         for(i=0;i<obj.length;i++)
+         {
+             
+              document.getElementById('id'+i).style.background =obj[i]['colour'];
+         }
+
+	}
+	
+
+	this.ok = function(){
+		document.getE
+		lementById('dialogbox').style.display = "none";
+		document.getElementById('dialogoverlay').style.display = "none";
+	}
+	
+
+};
+
+var Alert=new CustomConfirm();
+
+
+
+
+var txt1=[
+          {
+            label: "ok",
+            colour: "red"
+          },
+
+          {
+            label: "cancel",
+            colour: "blue"
+          },
+          
+          {
+            label: "haha",
+            colour: "green"
+          }
+          
+
+
+     ];
+
+var txt=JSON.stringify(txt1);
+
+
+</script>
+</head>
+<body>
+<div id="dialogoverlay"></div>
+<div id="dialogbox">
+ <div>
+   <div id="dialogboxhead"></div>
+   <div id="dialogboxbody"></div> 
+   <div id="dialogboxfoot"></div>
+ </div>
+</div>
+
+
+
+
+
+
+<button onclick="Alert.render(txt)">Click to see custom confirm box</button>;
+
+
+</body>
+</html>
+
+
